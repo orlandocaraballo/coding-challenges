@@ -39,7 +39,7 @@ end
 
 # define our LinkedList class with an empty head by default
 class LinkedList
-  def initialize()
+  def initialize
     @head = nil
   end
   
