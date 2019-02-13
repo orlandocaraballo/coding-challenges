@@ -88,41 +88,41 @@ class LinkedList
 
     # all other circumstances follow from here
 
-    # we store the head initially as priorNode
-    #   and the next node as currentNode
-    priorNode = @head
-    currentNode = @head.next
+    # we store the head initially as currentNode
+    #   and the next node as nextNode
+    currentNode = @head
+    nextNode = @head.next
 
-    # start looping until currentNode is nil
+    # start looping until nextNode is nil
     #   under the circumstance where the linked list is of size 1,
     #   the if statement here will skip looping and jump to the bottom
     #   where we assume this user will be inserted into the end of the list
-    while currentNode
-      # check if user's age is less than the age of the currentNode's user age
-      if currentNode.value.age > user.age
+    while nextNode
+      # check if user's age is less than the age of the nextNode's user age
+      if nextNode.value.age > user.age
         # if so then do the following:
         #   - create a new node
-        #   - set the new node's next reference to the currentNode we are looping on
-        #   - set the priorNode next reference to this newly created node
+        #   - set the currentNode next reference to this newly created node
+        #   - set the new node's next reference to the nextNode
         #   - return from the method
 
-        # in essence we are inserting this new user object to be in between
-        #   the priorNode and the currentNode we are looping on
-        priorNode.next = Node.new(user)
-        priorNode.next.next = currentNode
+        # in essence we are inserting this new user object in between
+        #   the currentNode and the nextNode
+        currentNode.next = Node.new(user)
+        currentNode.next.next = nextNode
         return
       end
 
-      # set priorNode to currentNode we are looping on
-      priorNode = currentNode
+      # set currentNode to nextNode
+      currentNode = nextNode
 
       # set currentNode to the next node in the linked list
-      currentNode = currentNode.next
+      nextNode = nextNode.next
     end
 
     # at this point we've looped to the end of the list
     #   therefore we can assume the node belongs at the end of list
-    priorNode.next = Node.new(user)
+    currentNode.next = Node.new(user)
   end
   
   # Complexity:
@@ -152,6 +152,7 @@ rescue StandardError => error
 end
 
 # add some users to the linked list
+linkedList.add(User.new("orlando", 2))
 linkedList.add(User.new("orlando", 35))
 linkedList.add(User.new("denisse", 20))
 linkedList.add(User.new("patrisha", 13))
@@ -164,5 +165,5 @@ linkedList.add(User.new("frank", 3))
 # display all users
 linkedList.printAllUsers
 
-# display front of list
-puts "front of list is -> #{ linkedList.first }"
+# display first element of list
+puts "first element of list is -> #{ linkedList.first }"
